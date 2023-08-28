@@ -1,33 +1,33 @@
 {
   "name": "curso-node",
   "version": "1.0.0",
-  "description": "El mejor curso de Node por $0",
-  "main": "index.js",
+  "description": "Repositorio con código de práctica de nodejs",
+  "main": "1.http.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon 1.http.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JuanMendozaOS/curso-node-js.git"
   },
-  "keywords": [
-    "curso",
-    "node",
-    "nodejs"
-  ],
-  "author": "Juan Mendoza",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JuanMendozaOS/curso-node-js/issues"
   },
   "homepage": "https://github.com/JuanMendozaOS/curso-node-js#readme",
-  "dependencies": {
-    "picocolors": "1.0.0"
-  },
   "devDependencies": {
+    "nodemon": "^3.0.1",
     "standard": "17.1.0"
   },
   "eslintConfig": {
-    "extends": ["standard"]
+    "extends": [
+      "standard"
+    ]
+  },
+  "dependencies": {
+    "picocolors": "^1.0.0"
   }
 }

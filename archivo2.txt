@@ -1,2 +1,0 @@
-Segundo archivo txt. 
-Creado para testear la sincronía de readFileSync
