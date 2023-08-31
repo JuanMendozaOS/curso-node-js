@@ -5,7 +5,11 @@ app.disable('x-powered-by')
 
 const PORT = process.env.PORT ?? 1234
 
-app.use((req, res, next) => {
+// express.json es el middleware default de express
+// hace lo mismo que se hizo manualmente abajo
+app.use(express.json())
+
+/* app.use((req, res, next) => {
   if (req.method !== 'POST') return next()
   if (req.headers['Content-type'] !== 'application/json') return next()
 
@@ -24,7 +28,7 @@ app.use((req, res, next) => {
     req.body = data
     next()
   })
-})
+}) */
 
 app.get('/pokemon/ditto', (req, res) => {
   res.json(ditto)
