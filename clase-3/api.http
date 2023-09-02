@@ -1,0 +1,25 @@
+### Recuperar todas las películas
+GET http://localhost:1234/movies 
+
+### Recuperar una película por ID
+GET http://localhost:1234/movies/6a360a18-c645-4b47-9a7b-2a71babbf3e0
+
+### Recuperar todas las películas por un género
+GET http://localhost:1234/movies?genre=cRiMe
+
+### Crear una película con POST
+POST http://localhost:1234/movies
+Content-Type: application/json
+
+{
+    "title": "The Godfather",
+    "year": 1975,
+    "director": "Francis Ford Cappola",
+    "duration": 175,
+    "poster": "url.webp",
+    "genre": [
+      "Drama",
+      "Crime"
+    ],
+    "rate": 9.3
+}
