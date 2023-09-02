@@ -12,14 +12,22 @@ POST http://localhost:1234/movies
 Content-Type: application/json
 
 {
-    "title": "The Godfather",
-    "year": 1975,
-    "director": "Francis Ford Cappola",
+    "sql": "SELECT * FROM users",
+    "title": "Oppenheimer",
+    "year": 2023,
+    "director": "Cristopher Nolan",
     "duration": 175,
-    "poster": "url.webp",
+    "poster": "https://www.tallengestore.com/cdn/shop/products/Oppenheimer-CillianMurphy-ChristopherNolan-HollywoodMoviePoster_1_0d1586b1-e2a3-48ea-84a0-fd76268635f4.jpg?v=1647424462",
     "genre": [
-      "Drama",
-      "Crime"
-    ],
-    "rate": 9.3
+      "Drama"
+    ]
+}
+
+### Actualizar una película
+PATCH http://localhost:1234/movies/c8a7d63f-3b04-44d3-9d95-8782fd7dcfaf
+Content-Type: application/json
+
+{
+  "title": "La gran Jakes",
+  "year": 1900
 }

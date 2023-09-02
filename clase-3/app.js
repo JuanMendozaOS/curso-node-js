@@ -1,8 +1,7 @@
 const express = require('express')
 const crypto = require('node:crypto')
 const movies = require('./movies.json')
-const { validateMovie } = require('./schemas/movies')
-const z = require('zod')
+const { validateMovie, validatePartialMovie } = require('./schemas/movies')
 const app = express()
 app.disable('x-powered-by')
 
@@ -13,6 +12,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/movies', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+
   const { genre } = req.query
   if (genre) {
     const filteredMovies = movies.filter(
@@ -34,7 +35,7 @@ app.post('/movies', (req, res) => {
   const result = validateMovie(req.body)
 
   if (result.error) {
-    return res.status(400).json({ status: 400, message: result.error.message })
+    return res.status(400).json({ status: 400, errorMessage: JSON.parse(result.error.message) })
   }
 
   const newMovie = {
@@ -47,6 +48,29 @@ app.post('/movies', (req, res) => {
   movies.push(newMovie)
 
   res.status(201).json(newMovie) // actualizar la cache del cliente
+})
+
+app.patch('/movies/:id', (req, res) => {
+  const result = validatePartialMovie(req.body)
+
+  if (result.error) {
+    res.status(400).json({ status: 400, errorMessage: JSON.parse(result.error.message) })
+  }
+
+  const { id } = req.params
+  // usamos el index hasta que manejemos la info en base de datos
+  const movieIndex = movies.findIndex(movie => movie.id === id)
+
+  if (movieIndex < 0) return res.status(404).json({ status: 404, errorMessage: 'Movie not found' })
+
+  const updatedMovie = {
+    ...movies[movieIndex],
+    ...result.data
+  }
+
+  movies[movieIndex] = updatedMovie
+
+  res.status(201).json(updatedMovie)
 })
 
 const PORT = process.env.PORT ?? 1234
