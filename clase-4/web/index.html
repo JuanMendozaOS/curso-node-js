@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Probar API Rest</title>
+  <style>
+    * {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    main{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      column-gap: 1rem;
+      padding: 1rem
+    }
+    article {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      display: grid;
+      place-items: center;
+    }
+
+    img{
+      height: auto;
+      width: 320px;
+      max-width: 100%;
+      padding: 1rem 0;
+    }
+
+    @media (max-width: 700px){
+      main{
+      grid-template-columns: 1fr 1fr;
+    }
+    }
+  </style>
+  <script type="module">
+    fetch('http://localhost:1234/movies')
+    .then(res => res.json())
+    .then(movies => {
+      const html = movies.map(movie => {
+        return `<article data-id="${movie.id}">
+                  <h2>${movie.title}</h2>
+                  <img src=${movie.poster} alt=${movie.title} >
+                  <p>${movie.director} - ${movie.year}</p>
+                  <p>Rating: ${movie.rate}/10</p>
+
+
+                  <button>Eliminar</button>
+                </article>`
+      }).join('')
+
+      document.querySelector('main').innerHTML = html;
+
+      document.addEventListener('click', e => {
+        if(e.target.matches('button')) {
+          const article = e.target.closest('article')
+          const id = article.dataset.id
+
+          fetch(`https://localhost:1234/movies/${id}`, {
+            method: 'DELETE'
+          })
+          .then(response => response.json())
+          .then(res => {
+            if(res.ok){
+              article.remove()
+            }
+          })
+        }
+      })
+    })
+
+  </script>
+</head>
+<body>
+  <main>
+  </main>
+</body>
+</html>
