@@ -1,13 +1,11 @@
 import express, { json } from 'express'
 
-import { moviesRouter } from './routes/movies'
-import { corsMiddleware } from './middleware/cors'
+import { moviesRouter } from './routes/movies.js'
+import { corsMiddleware } from './middleware/cors.js'
 /*  Leer un json en ESModules
   import fs from 'node:fs'
   const movies = JSON.parse(fs.readFileSync('./movies.json', 'utf-8'))
 */
-
-// como leer un json en ESModules recomendado por ahora
 
 const app = express()
 app.disable('x-powered-by')
